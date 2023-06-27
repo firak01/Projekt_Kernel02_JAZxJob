@@ -26,11 +26,31 @@ public class JobStepFileUploaderToFtpZZZ extends AbstractJobStepZZZ {
 		super();
 	}
 	
+	
+	/**Ein JobStep, der im gleichen Modul liegt, also das gleiche Kernel-Objekt wie Application nutzt
+	 * @param objController
+	 * @throws ExceptionZZZ
+	 * 23.06.2023, 09:44:32, Fritz Lindhauer
+	 */
 	public JobStepFileUploaderToFtpZZZ(JobStepControllerZZZ objController) throws ExceptionZZZ {
 		super(objController);
-		JobStepPageUploaderToFtpZZZ_();
+		JobStepPageUploaderToFtpZZZ_(null);
 	}
-	private boolean JobStepPageUploaderToFtpZZZ_() throws ExceptionZZZ {
+	
+	/**Ein JobStep, der in einem anderen Modul liegt, also NICHT das gleiche Kernel-Objekt wie Application nutzt
+	 * @param objController
+	 * @throws ExceptionZZZ
+	 * 23.06.2023, 09:44:32, Fritz Lindhauer
+	 */
+	public JobStepFileUploaderToFtpZZZ(IKernelZZZ objKernel, JobStepControllerZZZ objController) throws ExceptionZZZ {
+		super(objController);
+		JobStepPageUploaderToFtpZZZ_(objKernel);
+	}
+	
+	private boolean JobStepPageUploaderToFtpZZZ_(IKernelZZZ objKernel) throws ExceptionZZZ {
+		if(objKernel!=null) {
+			this.setKernelObject(objKernel);
+		}
 		return true;
 	}
 		
@@ -51,9 +71,10 @@ public class JobStepFileUploaderToFtpZZZ extends AbstractJobStepZZZ {
 				IJobStepControllerZZZ objController = this.getJobStepController();
 				IJobZZZ objJob = objController.getJob();
 				
-				IApplicationZZZ objApplication = objJob.getApplicationObject();
-				IKernelZZZ objKernel = objApplication.getKernelObject();
+				//IApplicationZZZ objApplication = objJob.getApplicationObject();
+				//IKernelZZZ objKernel = objApplication.getKernelObject();
 				
+				IKernelZZZ objKernel = this.getKernelObject();
 				String sAlias = this.getJobStepAlias();
 	 
 				

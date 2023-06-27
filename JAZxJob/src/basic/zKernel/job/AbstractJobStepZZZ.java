@@ -4,10 +4,11 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.IKernelZZZ;
+import basic.zKernel.KernelUseObjectZZZ;
 import basic.zKernel.net.client.IMainZZZ;
 import custom.zKernel.LogZZZ;
 
-public abstract class AbstractJobStepZZZ implements IJobStepZZZ, IConstantZZZ{
+public abstract class AbstractJobStepZZZ extends KernelUseObjectZZZ implements IJobStepZZZ, IConstantZZZ{
 	public static String sJOBSTEP_ALIAS="DEFAULT, IN ERBENDER KLASSE ERSETZEN";
 	
 	private IJobStepControllerZZZ objJobStepController=null;
@@ -84,12 +85,17 @@ public abstract class AbstractJobStepZZZ implements IJobStepZZZ, IConstantZZZ{
 	//Aus IKernelUserZZZ
 	@Override
 	public IKernelZZZ getKernelObject() {
-		return this.getJobStepController().getKernelObject();
+		IKernelZZZ objReturn = super.getKernelObject();
+		if(objReturn==null) {
+			IKernelZZZ objKernelApplication = this.getJobStepController().getKernelObject();
+			this.setKernelObject(objKernelApplication);
+		}
+		return objReturn;
 	}
 
 	@Override
 	public void setKernelObject(IKernelZZZ objKernel) {
-		this.getJobStepController().setKernelObject(objKernel);
+		super.setKernelObject(objKernel);
 	}
 
 	@Override

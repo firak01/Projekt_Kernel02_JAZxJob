@@ -11,6 +11,7 @@ import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapIndexedZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zKernel.IKernelConfigSectionEntryZZZ;
+import basic.zKernel.IKernelConfigZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.net.client.IApplicationZZZ;
 import basic.zKernel.net.client.IMainZZZ;
@@ -26,11 +27,30 @@ public class JobStepHtmlTableWriteZZZ extends AbstractJobStepWithOutputZZZ {
 		super();
 	}
 	
+	/**Ein JobStep, der im gleichen Modul liegt, also das gleiche Kernel-Objekt wie Application nutzt
+	 * @param objController
+	 * @throws ExceptionZZZ
+	 * 23.06.2023, 09:44:32, Fritz Lindhauer
+	 */
 	public JobStepHtmlTableWriteZZZ(JobStepControllerZZZ objController) throws ExceptionZZZ {
 		super(objController);
-		JobStepHtmlTableWriterNew_();
+		JobStepHtmlTableWriterNew_(null);
 	}
-	private boolean JobStepHtmlTableWriterNew_() throws ExceptionZZZ {
+	
+	/**Ein JobStep, der in einem anderen Modul liegt, also NICHT das gleiche Kernel-Objekt wie Application nutzt
+	 * @param objController
+	 * @throws ExceptionZZZ
+	 * 23.06.2023, 09:44:32, Fritz Lindhauer
+	 */
+	public JobStepHtmlTableWriteZZZ(IKernelZZZ objKernel, JobStepControllerZZZ objController) throws ExceptionZZZ {
+		super(objController);
+		JobStepHtmlTableWriterNew_(objKernel);
+	}
+	
+	private boolean JobStepHtmlTableWriterNew_(IKernelZZZ objKernel) throws ExceptionZZZ {
+		if(objKernel!=null) {
+			this.setKernelObject(objKernel);
+		}
 		return true;
 	}
 		
@@ -44,16 +64,17 @@ public class JobStepHtmlTableWriteZZZ extends AbstractJobStepWithOutputZZZ {
 		boolean bReturn = false;
 		main:{
 			String stemp;String sPropertyUsed;
-			try {
-				//1. Hole die Interne Application für diesen Step.
-	            //	 Dazu ist in der Ini Datei dieser STEP mit seinem Aliasnamen definiert (also NICHT die Klasse incl. Packagenamen) als ein Program.
-	            //	 Die Werte dann im Program hinterlegen, also Pfad				
+			try {				 
+				//Da noch ein anderer Step vorgeschaltet wird,
+				//wird das benötigt, um den Output des vorherigen Steps abzufragen.
 				IJobStepControllerZZZ objController = this.getJobStepController();
-				IJobZZZ objJob = objController.getJob();
+				//IJobZZZ objJob = objController.getJob();
+				//IApplicationZZZ objApplication = objJob.getApplicationObject();
 				
-				IApplicationZZZ objApplication = objJob.getApplicationObject();
-				IKernelZZZ objKernel = objApplication.getKernelObject();
-				
+				//1. Hole das Kernel-Objekt für diesen Step.
+	            //	 Dazu ist in der Ini Datei dieser STEP mit seinem Aliasnamen definiert (also NICHT die Klasse incl. Packagenamen) als ein Program.
+	            //	 Die Werte dann im Program hinterlegen, also Pfad	
+				IKernelZZZ objKernel = this.getKernelObject();
 				String sAlias = this.getJobStepAlias();
 	 
 				//###############################################
@@ -66,7 +87,7 @@ public class JobStepHtmlTableWriteZZZ extends AbstractJobStepWithOutputZZZ {
 					ExceptionZZZ ez = new ExceptionZZZ(sLog,iERROR_PARAMETER_MISSING, this,  ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}
-				String sJobStepPreviousOutputParameter = "TableHeadLabel";
+				String sJobStepPreviousOutputParameter = "TableHeadLabelMap";
 				IJobStepOutputZZZ objOutputStepPrevious = objJobStepWithOutput.getOutput(sJobStepPreviousOutputParameter);
 				if(objOutputStepPrevious==null) {
 					String sLog = "Missing JobStepPreviousOutputParameter: '" + sJobStepPreviousOutputParameter + "' from the step '" + sJobStepPrevious + "'.";
@@ -78,7 +99,7 @@ public class JobStepHtmlTableWriteZZZ extends AbstractJobStepWithOutputZZZ {
 				//A) Die erstellte HashMap mit HeaderId = Label
 				HashMapIndexedZZZ<Integer, TableHeadZZZ> mapIndexedTableHeadLabel = new HashMapIndexedZZZ<Integer, TableHeadZZZ>();
 				mapIndexedTableHeadLabel = (HashMapIndexedZZZ<Integer, TableHeadZZZ>) objOutputStepPrevious.getHashMapIndexed();
-				
+												
 				//##############################################
 				//Werte fuer diesen Step holen
 				
@@ -92,7 +113,10 @@ public class JobStepHtmlTableWriteZZZ extends AbstractJobStepWithOutputZZZ {
 					throw ez;
 				}
 				stemp = objEntryPath.getValue();
-				String sDirectoryPath = FileEasyZZZ.joinFilePathName("tryout",stemp);//sonst kommt src als erster Pfadteil
+					
+				//Hier den INI-Datei Pfad verwenden. Daraus das Parent-Objekt holen und dann join des Pfads mit dem html namen/pfad
+				String sDirectoryPath = this.getKernelObject().getFileConfigKernelDirectory();
+				sDirectoryPath = FileEasyZZZ.joinFilePathName(sDirectoryPath,stemp);
 			
 				sPropertyUsed = "InputFileNameXml";
 				IKernelConfigSectionEntryZZZ objEntryFileXml = objKernel.getParameterByProgramAlias(sAlias, sPropertyUsed, true);
@@ -104,7 +128,12 @@ public class JobStepHtmlTableWriteZZZ extends AbstractJobStepWithOutputZZZ {
 				}
 				String sFileNameInputXml = objEntryFileXml.getValue();						
 				File fileXml = FileEasyZZZ.searchFile(sDirectoryPath,sFileNameInputXml);
-			
+				if(!FileEasyZZZ.exists(fileXml)) {
+					//Suche nach einer Datei im workspace, also NICHT per Classloader
+					IKernelConfigZZZ objConfig = this.getKernelObject().getConfigObject();
+					fileXml = FileEasyZZZ.searchFileInWorkspace(objConfig, sDirectoryPath,sFileNameInputXml);
+				}
+				
 				//B) XSLT Datei fuer die Transformation. Diese enthaelt auch die HTML-Tags				
 				sPropertyUsed = "InputFileNameXsl";
 				IKernelConfigSectionEntryZZZ objEntryFileXsl = objKernel.getParameterByProgramAlias(sAlias, sPropertyUsed, true);
@@ -115,8 +144,13 @@ public class JobStepHtmlTableWriteZZZ extends AbstractJobStepWithOutputZZZ {
 					throw ez;
 				}
 				String sFileNameInputXsl = objEntryFileXsl.getValue();
-				File fileXslt = FileEasyZZZ.searchFile(sDirectoryPath,sFileNameInputXsl);
-										
+				File fileXslt = FileEasyZZZ.searchFile(sDirectoryPath,sFileNameInputXsl);				
+				if(!FileEasyZZZ.exists(fileXslt)) {
+					//Suche nach einer Datei im workspace, also NICHT per Classloader
+					IKernelConfigZZZ objConfig = this.getKernelObject().getConfigObject();
+					fileXslt = FileEasyZZZ.searchFileInWorkspace(objConfig,sDirectoryPath,sFileNameInputXsl);
+				}		
+				
 				//C) Dateipfad fuer das Ergebnis Html
 				sPropertyUsed = "OutputDirectoryPath";
 				IKernelConfigSectionEntryZZZ objEntryDirectoryHtml = objKernel.getParameterByProgramAlias(sAlias, sPropertyUsed, true);
@@ -126,13 +160,16 @@ public class JobStepHtmlTableWriteZZZ extends AbstractJobStepWithOutputZZZ {
 					ExceptionZZZ ez = new ExceptionZZZ(sLog,iERROR_PARAMETER_MISSING, this,  ReflectCodeZZZ.getMethodCurrentName());
 					throw ez;
 				}
-				stemp = objEntryDirectoryHtml.getValue();				
-		        String sFilePathTryout = FileEasyZZZ.joinFilePathName("tryout",stemp);//sonst kommt src als erster Pfadteil
-		        
-		        //### Ausgabewert (hier Datei) vorbereiten, sowohl fuer die Transformation, als auch als Rueckgabewert des Steps
+				stemp = objEntryDirectoryHtml.getValue();
+				sDirectoryPath = this.getKernelObject().getFileConfigKernelDirectory();
+				sDirectoryPath = FileEasyZZZ.joinFilePathName(sDirectoryPath,stemp);
+				
+				//### Ausgabewert (hier Datei) vorbereiten, sowohl fuer die Transformation, als auch als Rueckgabewert des Steps
 		        String sFileName = FileEasyZZZ.getNameWithChangedEnd(fileXslt, "html");
-		        String sFilePathTotal = FileEasyZZZ.joinFilePathName(sFilePathTryout,sFileName);//sonst kommt src als erster Pfadteil
-		        System.out.println("Creating new file in directory '" + sFilePathTryout + "' by KernelWriterHtmlByXsltZZZ."); 
+		        										       
+	        					
+		        String sFilePathTotal = FileEasyZZZ.joinFilePathName(sDirectoryPath,sFileName);//sonst kommt src als erster Pfadteil
+		        System.out.println("Creating new file in directory '" + sFilePathTotal + "' by KernelWriterHtmlByXsltZZZ."); 
 		        System.out.println("The new file will have the same name as the xslt file with the ending html: '" + sFilePathTotal + "'");
 		        File fileHtmlOutput = new File(sFilePathTotal);
 

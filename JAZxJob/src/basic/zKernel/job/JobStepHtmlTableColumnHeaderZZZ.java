@@ -11,6 +11,7 @@ import basic.zBasic.ReflectCodeZZZ;
 import basic.zBasic.util.abstractList.HashMapIndexedZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zKernel.IKernelConfigSectionEntryZZZ;
+import basic.zKernel.IKernelConfigZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.net.client.IApplicationZZZ;
 import basic.zKernel.net.client.IMainZZZ;
@@ -26,11 +27,30 @@ public class JobStepHtmlTableColumnHeaderZZZ extends AbstractJobStepWithOutputZZ
 		super();
 	}
 	
+	/**Ein JobStep, der im gleichen Modul liegt, also das gleiche Kernel-Objekt wie Application nutzt
+	 * @param objController
+	 * @throws ExceptionZZZ
+	 * 23.06.2023, 09:44:32, Fritz Lindhauer
+	 */
 	public JobStepHtmlTableColumnHeaderZZZ(JobStepControllerZZZ objController) throws ExceptionZZZ {
 		super(objController);
-		JobStepHtmlTableWriterNew_();
+		JobStepHtmlTableWriterNew_(null);
 	}
-	private boolean JobStepHtmlTableWriterNew_() throws ExceptionZZZ {
+	
+	/**Ein JobStep, der in einem anderen Modul liegt, also NICHT das gleiche Kernel-Objekt wie Application nutzt
+	 * @param objController
+	 * @throws ExceptionZZZ
+	 * 23.06.2023, 09:44:32, Fritz Lindhauer
+	 */
+	public JobStepHtmlTableColumnHeaderZZZ(IKernelZZZ objKernel, JobStepControllerZZZ objController) throws ExceptionZZZ {
+		super(objController);
+		JobStepHtmlTableWriterNew_(objKernel);
+	}
+	
+	private boolean JobStepHtmlTableWriterNew_(IKernelZZZ objKernel) throws ExceptionZZZ {
+		if(objKernel!=null) {
+			this.setKernelObject(objKernel);
+		}
 		return true;
 	}
 		
@@ -44,18 +64,19 @@ public class JobStepHtmlTableColumnHeaderZZZ extends AbstractJobStepWithOutputZZ
 		boolean bReturn = false;
 		main:{
 			String stemp;String sPropertyUsed;
-			try {
-				//1. Hole die Interne Application für diesen Step.
+			try {				
+				//Momentan noch nicht gebraucht, 
+				//aber wenn noch ein anderer Step vorgeschaltet wird,
+				//wird das benötigt, um den Output des vorherigen Steps abzufragen.
+				//IJobStepControllerZZZ objController = this.getJobStepController();
+				//IJobZZZ objJob = objController.getJob();
+				
+				//1. Hole das Kernel-Objekt für diesen Step.
 	            //	 Dazu ist in der Ini Datei dieser STEP mit seinem Aliasnamen definiert (also NICHT die Klasse incl. Packagenamen) als ein Program.
 	            //	 Die Werte dann im Program hinterlegen, also Pfad				
-				IJobStepControllerZZZ objController = this.getJobStepController();
-				IJobZZZ objJob = objController.getJob();
-				
-				IApplicationZZZ objApplication = objJob.getApplicationObject();
-				IKernelZZZ objKernel = objApplication.getKernelObject();
-				
+				IKernelZZZ objKernel = this.getKernelObject(); //Das Kernel-Objekt aus dem JobStep holen				
 				String sAlias = this.getJobStepAlias();
-	 
+	 			
 		        //Die Reihenfolge der Header, wie konfiguriert
 		        sPropertyUsed = "TableHeaderMap";		        		       
 		        Map<String,String> mapTableHeadLabel = objKernel.getParameterHashMapWithStringByProgramAlias(sAlias, sPropertyUsed);
@@ -74,7 +95,7 @@ public class JobStepHtmlTableColumnHeaderZZZ extends AbstractJobStepWithOutputZZ
 				
 				//Den Rueckgabewert bereitstellen fuer nachfolgende Jobs.
 				JobStepOutputZZZ objOutput = new JobStepOutputZZZ(mapIndexedTableHeadLabel);
-				this.addOutput("TableHeadLabel",objOutput);
+				this.addOutput("TableHeadLabelMap",objOutput);
 				
 				bReturn = true;		
 			} catch (Exception e) {
