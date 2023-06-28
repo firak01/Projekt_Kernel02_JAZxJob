@@ -32,7 +32,7 @@ public class JobStepFileUploaderToFtpZZZ extends AbstractJobStepZZZ {
 	 * @throws ExceptionZZZ
 	 * 23.06.2023, 09:44:32, Fritz Lindhauer
 	 */
-	public JobStepFileUploaderToFtpZZZ(JobStepControllerZZZ objController) throws ExceptionZZZ {
+	public JobStepFileUploaderToFtpZZZ(IJobStepControllerZZZ objController) throws ExceptionZZZ {
 		super(objController);
 		JobStepPageUploaderToFtpZZZ_(null);
 	}
@@ -42,7 +42,7 @@ public class JobStepFileUploaderToFtpZZZ extends AbstractJobStepZZZ {
 	 * @throws ExceptionZZZ
 	 * 23.06.2023, 09:44:32, Fritz Lindhauer
 	 */
-	public JobStepFileUploaderToFtpZZZ(IKernelZZZ objKernel, JobStepControllerZZZ objController) throws ExceptionZZZ {
+	public JobStepFileUploaderToFtpZZZ(IKernelZZZ objKernel, IJobStepControllerZZZ objController) throws ExceptionZZZ {
 		super(objController);
 		JobStepPageUploaderToFtpZZZ_(objKernel);
 	}
@@ -63,21 +63,17 @@ public class JobStepFileUploaderToFtpZZZ extends AbstractJobStepZZZ {
 	public boolean process() throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
-			String stemp;String sPropertyUsed;
 			try {
 				//1. Hole die Interne Application für diesen Step.
 	            //	 Dazu ist in der Ini Datei dieser STEP mit seinem Aliasnamen definiert (also NICHT die Klasse incl. Packagenamen) als ein Program.
 	            //	 Die Werte dann im Program hinterlegen, also Pfad				
 				IJobStepControllerZZZ objController = this.getJobStepController();
-				IJobZZZ objJob = objController.getJob();
 				
+				//Falls etwas aus dem Job- oder de Application- oder dem aufrufenden Kernel-Objekt gebraucht wuerde:
+				//IJobZZZ objJob = objController.getJob();				
 				//IApplicationZZZ objApplication = objJob.getApplicationObject();
 				//IKernelZZZ objKernel = objApplication.getKernelObject();
-				
-				IKernelZZZ objKernel = this.getKernelObject();
-				String sAlias = this.getJobStepAlias();
-	 
-				
+								
 				//Ausgabeparameter des vorherigen HtmlTableWrite-Steps holen
 				String sJobStepPrevious = "HtmlTableWriterStep";
 				IJobStepOutputProviderZZZ objJobStepWithOutput = objController.getJobStepForOutput(sJobStepPrevious);
@@ -111,6 +107,7 @@ public class JobStepFileUploaderToFtpZZZ extends AbstractJobStepZZZ {
 					throw ez;
 				}
 				
+				TODOGOON20230627;
 				
 				//### DEN STEP AUSFUEHREN...
                 //Ziel ist es die Konfiguration des Programs 1:1 in das Modul aufzunehmen und dann in diesem Step wirklich nur das Program zu starten.
@@ -152,6 +149,4 @@ public class JobStepFileUploaderToFtpZZZ extends AbstractJobStepZZZ {
 		}//end main:
 		return bReturn;
 	}
-
-	
 }

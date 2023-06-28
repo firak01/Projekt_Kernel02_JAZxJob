@@ -5,10 +5,13 @@ import basic.zBasic.IConstantZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.KernelUseObjectZZZ;
+import basic.zKernel.component.AbstractKernelModuleZZZ;
+import basic.zKernel.component.AbstractKernelProgramZZZ;
 import basic.zKernel.net.client.IMainZZZ;
 import custom.zKernel.LogZZZ;
 
-public abstract class AbstractJobStepZZZ extends KernelUseObjectZZZ implements IJobStepZZZ, IConstantZZZ{
+//public abstract class AbstractJobStepZZZ extends KernelUseObjectZZZ implements IJobStepZZZ, IConstantZZZ{
+public abstract class AbstractJobStepZZZ extends AbstractKernelProgramZZZ implements IJobStepZZZ, IConstantZZZ{
 	public static String sJOBSTEP_ALIAS="DEFAULT, IN ERBENDER KLASSE ERSETZEN";
 	
 	private IJobStepControllerZZZ objJobStepController=null;
@@ -17,11 +20,11 @@ public abstract class AbstractJobStepZZZ extends KernelUseObjectZZZ implements I
 	private IMainZZZ objMainHandler=null;//die im JobStep verwendete Application, das ist nicht die andere "aussen" rum.
 	
 	public AbstractJobStepZZZ() throws ExceptionZZZ{
-		//super();
+		super();
 	}
 	
 	public AbstractJobStepZZZ(IJobStepControllerZZZ objController) throws ExceptionZZZ {
-		//super();
+		super();
 		AbstractJobStepNew_(objController);
 	}
 	
@@ -84,7 +87,7 @@ public abstract class AbstractJobStepZZZ extends KernelUseObjectZZZ implements I
 	
 	//Aus IKernelUserZZZ
 	@Override
-	public IKernelZZZ getKernelObject() {
+	public IKernelZZZ getKernelObject() throws ExceptionZZZ {
 		IKernelZZZ objReturn = super.getKernelObject();
 		if(objReturn==null) {
 			IKernelZZZ objKernelApplication = this.getJobStepController().getKernelObject();
@@ -99,18 +102,25 @@ public abstract class AbstractJobStepZZZ extends KernelUseObjectZZZ implements I
 	}
 
 	@Override
-	public LogZZZ getLogObject() {
+	public LogZZZ getLogObject() throws ExceptionZZZ {
 		return this.getKernelObject().getLogObject();
 	}
 
 	@Override
-	public void setLogObject(LogZZZ objLog) {
+	public void setLogObject(LogZZZ objLog) throws ExceptionZZZ {
 		this.getKernelObject().setLogObject(objLog);
 	}
 
 	@Override
-	public void logLineDate(String sLog) {
+	public void logLineDate(String sLog) throws ExceptionZZZ {
 		this.getLogObject().logLineDate(sLog);
+	}
+	
+	//### Aus IKernelModule
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

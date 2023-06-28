@@ -1,12 +1,17 @@
 package basic.zKernel.job;
 
+import java.util.ArrayList;
+
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
+import basic.zKernel.IKernelZZZ;
+import basic.zKernel.component.AbstractKernelModuleZZZ;
+import basic.zKernel.component.AbstractKernelProgramZZZ;
 import basic.zKernel.net.client.IApplicationUserZZZ;
 import basic.zKernel.net.client.IApplicationZZZ;
 
-public abstract class AbstractJobZZZ implements IJobZZZ, IApplicationUserZZZ, IConstantZZZ{
+public abstract class AbstractJobZZZ extends AbstractKernelProgramZZZ implements IJobZZZ, IApplicationUserZZZ, IConstantZZZ{
 	public static String sJOB_ALIAS="DEFAULT, IN ERBENDER KLASSE ERSETZEN";
 	
 	private String sAlias = null;
@@ -15,20 +20,27 @@ public abstract class AbstractJobZZZ implements IJobZZZ, IApplicationUserZZZ, IC
 	
 	
 	public AbstractJobZZZ() throws ExceptionZZZ  {	
-		//super();
+		super();
 	}
 	
 	public AbstractJobZZZ(IApplicationZZZ objApplication) throws ExceptionZZZ {
-		//super();
+		super();
+		AbstractJobNew_(objApplication);
+	}
+	
+	public AbstractJobZZZ(IKernelZZZ objKernel, IApplicationZZZ objApplication) throws ExceptionZZZ {
+		super(objKernel);
 		AbstractJobNew_(objApplication);
 	}
 	
 	private boolean AbstractJobNew_(IApplicationZZZ objApplication) throws ExceptionZZZ {
 		this.setApplicationObject(objApplication);
-		
+					
 		String sJobAlias = this.getJobAliasCustom();//Diese Methode soll auf die static Variable DER ERBENDEN Klasse zugreifen.
 		this.setJobAlias(sJobAlias);
-		
+			
+		ArrayList<IJobStepZZZ> listaJobStep = this.createCustomJobSteps();
+		this.setJobSteps(listaJobStep);
 		return true;
 	}
 	
@@ -58,7 +70,11 @@ public abstract class AbstractJobZZZ implements IJobZZZ, IApplicationUserZZZ, IC
 	
 	//### Aus IJobZZZ
 	@Override
-	public IJobStepControllerZZZ getJobStepController() {
+	public IJobStepControllerZZZ getJobStepController() throws ExceptionZZZ {
+		if(this.objJobStepController==null) {
+			IJobStepControllerZZZ objController = new JobStepControllerZZZ(this);
+			this.setJobStepController(objController);
+		}
 		return this.objJobStepController;
 	}
 
@@ -67,7 +83,36 @@ public abstract class AbstractJobZZZ implements IJobZZZ, IApplicationUserZZZ, IC
 		this.objJobStepController = objJobStepController;
 	}
 	
-	public abstract boolean process() throws ExceptionZZZ;
+	@Override
+	public ArrayList<IJobStepZZZ> getJobSteps() throws ExceptionZZZ{
+		return this.getJobStepController().getJobSteps();		
+	}
+	
+	@Override
+	public void setJobSteps(ArrayList<IJobStepZZZ> listaJobStep) throws ExceptionZZZ{
+		this.getJobStepController().setJobSteps(listaJobStep);
+	}
+	
+	@Override
+	public void addJobStep(IJobStepZZZ objJobStep) throws ExceptionZZZ{
+		this.getJobStepController().addJobStep(objJobStep);
+	}
+	
+	@Override
+	public boolean process() throws ExceptionZZZ{
+		return this.getJobStepController().process();
+	}
+	
+	//### Aus IKernelUserZZZ
+	@Override
+	public IKernelZZZ getKernelObject() throws ExceptionZZZ {
+		IKernelZZZ objKernel = super.getKernelObject();
+		if(objKernel==null) {
+			objKernel = this.getApplicationObject().getKernelObject();
+			this.setKernelObject(objKernel);			
+		}
+		return objKernel;
+	}
 	
 	//### Aus IApplicationUserZZZ
 	@Override
@@ -79,4 +124,7 @@ public abstract class AbstractJobZZZ implements IJobZZZ, IApplicationUserZZZ, IC
 	public void setApplicationObject(IApplicationZZZ objApplication) {
 		this.objApplication = objApplication;
 	}
+	
+	@Override
+	public abstract ArrayList<IJobStepZZZ> createCustomJobSteps() throws ExceptionZZZ;
 }

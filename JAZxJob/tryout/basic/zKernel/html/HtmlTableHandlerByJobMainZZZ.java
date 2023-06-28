@@ -36,9 +36,9 @@ public class HtmlTableHandlerByJobMainZZZ extends AbstractMainZZZ {
 		try {
 			HtmlTableHandlerByJobMainZZZ objClient = new HtmlTableHandlerByJobMainZZZ();		
 			objClient.start(args);
-		} catch (ExceptionZZZ ez) {			
-				ez.printStackTrace();
-				System.out.println(ez.getDetailAllLast());			
+		} catch (ExceptionZZZ ez) {					
+				System.out.println(ez.getDetailAllLast());
+				ez.printStackTrace();						
 		}//END Catch
 	}//END main()
 	
@@ -68,12 +68,21 @@ public class HtmlTableHandlerByJobMainZZZ extends AbstractMainZZZ {
 				String sUrl = objApplication.getUrlToParse();
 				System.out.println("URL to parse ='" + sUrl + "'");
 				
-				//DAS UI handlebar machen
+				//############## DAS UI handlebar machen
 				//### 1. Voraussetzung: OpenVPN muss auf dem Rechner vorhanden sein. Bzw. die Dateiendung .ovpn ist registriert. 
 				//this.objClientTray = new ClientTrayUIZZZ(objKernel, this.objClientMain, (String[]) null);
 				
-				//### Arbeite mit einem JOB
-				IJobZZZ objJobHtml = new JobHtmlProviderZZZ(objApplication);
+
+				//############## DAS BACKEND handlebar machen, nutze anderes Modul, also eine andere ini-Datei...
+				//Wie die JobSteps, so muss auch der Job das Modul in einer anderen ini-Datei haben, also das andere Kernel-Objekt!!!
+												
+				//### Arbeite mit einem JOB, der in einem anderen Projekt liegt. Also auch eine andere ini - Datei hat				
+				IKernelConfigZZZ objConfigTableHandlerModule = new ConfigHtmlTableHandlerZZZ();
+				String sProjectPathCalling=objConfig.getProjectPath();//Die Verknüpfung zur "Startapplikation".
+				objConfigTableHandlerModule.setCallingProjectPath(sProjectPathCalling);//Der aufrufende Pfad ist dann zur Errechnung der Projektpfade wichtig
+				
+				IKernelZZZ objKernelTableHandlerModule = new KernelZZZ(objConfigTableHandlerModule, (String) null); //Damit kann man über die Startparameter ein anders konfiguriertes Kernel-Objekt erhalten.				
+				IJobZZZ objJobHtml = new JobHtmlProviderZZZ(objKernelTableHandlerModule, objApplication);
 				boolean bSuccess = objJobHtml.process();
 				if(bSuccess) {
 					System.out.println("Erfolgreich verarbeitet.");
@@ -110,10 +119,11 @@ public class HtmlTableHandlerByJobMainZZZ extends AbstractMainZZZ {
 		} catch (ExceptionZZZ e) {
 			try {
 				this.setFlag("haserror", true);
-			} catch (ExceptionZZZ e1) {				
+				this.getKernelObject().getLogObject().WriteLineDate(e.getDetailAllLast());
+			} catch (ExceptionZZZ e1) {	
+				System.out.println(e1.getDetailAllLast());
 				e1.printStackTrace();
-			}
-			this.getKernelObject().getLogObject().WriteLineDate(e.getDetailAllLast());
+			}			
 		}
 	}
 	

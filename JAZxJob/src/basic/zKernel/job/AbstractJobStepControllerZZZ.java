@@ -38,6 +38,11 @@ public abstract class AbstractJobStepControllerZZZ implements IJobStepController
 	}
 	
 	@Override
+	public void addJobStep(IJobStepZZZ objJobStep) throws ExceptionZZZ {
+		this.getJobSteps().add(objJobStep);
+	}
+	
+	@Override
 	public IJobStepZZZ getJobStep(String sJobStepAlias) throws ExceptionZZZ {
 		IJobStepZZZ objReturn = null;
 		main:{
@@ -82,23 +87,23 @@ public abstract class AbstractJobStepControllerZZZ implements IJobStepController
 	
 	//### aus IKernelUserZZZ
 	@Override
-	public IKernelZZZ getKernelObject() {
-		return this.getJob().getApplicationObject().getKernelObject();
+	public IKernelZZZ getKernelObject() throws ExceptionZZZ {
+		return this.getJob().getKernelObject();
 	}
 	@Override
 	public void setKernelObject(IKernelZZZ objKernel) {
-		this.getJob().getApplicationObject().setKernelObject(objKernel);
+		this.getJob().setKernelObject(objKernel);
 	}
 	@Override
-	public LogZZZ getLogObject() {
+	public LogZZZ getLogObject() throws ExceptionZZZ {
 		return this.getKernelObject().getLogObject();
 	}
 	@Override
-	public void setLogObject(LogZZZ objLog) {
+	public void setLogObject(LogZZZ objLog) throws ExceptionZZZ {
 		this.getKernelObject().setLogObject(objLog);
 	}
 	@Override
-	public void logLineDate(String sLog) {
+	public void logLineDate(String sLog) throws ExceptionZZZ {
 		this.getLogObject().logLineDate(sLog);
 	}
 }

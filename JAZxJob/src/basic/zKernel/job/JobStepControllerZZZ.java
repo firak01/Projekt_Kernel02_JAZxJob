@@ -3,6 +3,7 @@ package basic.zKernel.job;
 import java.util.ArrayList;
 
 import basic.zBasic.ExceptionZZZ;
+import basic.zBasic.ReflectCodeZZZ;
 import basic.zKernel.IKernelZZZ;
 import custom.zKernel.LogZZZ;
 
@@ -14,6 +15,8 @@ public class JobStepControllerZZZ extends AbstractJobStepControllerZZZ {
 		super(objJob);
 	}
 	
+	
+	
 	public boolean process() throws ExceptionZZZ {
 		boolean bReturn = false;
 		main:{
@@ -23,11 +26,14 @@ public class JobStepControllerZZZ extends AbstractJobStepControllerZZZ {
 			int iStep = -1;
 			for(IJobStepZZZ objStep : listaStep) {
 				iStep++;
+				System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - Index No. " + iStep + ": Executing Step '" + objStep.getJobStepAlias() + "'.");
 				
 				boolean bSuccess = objStep.process();
 				if(!bSuccess) {
-					System.out.println("JobStep executed as Index No. " + iStep + " did not complete successfully. Aborting.");
+					System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - Index No. " + iStep + ": JobStep '" + objStep.getJobStepAlias() + "' did not complete successfully. Aborting.");
 					break main;
+				}else {
+					System.out.println(ReflectCodeZZZ.getPositionCurrent() + " - Index No. " + iStep + ": JobStep '" + objStep.getJobStepAlias() + "' completed successfully.");					
 				}
 								
 			}

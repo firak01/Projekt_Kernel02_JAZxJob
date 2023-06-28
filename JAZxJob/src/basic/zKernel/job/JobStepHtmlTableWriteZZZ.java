@@ -32,7 +32,7 @@ public class JobStepHtmlTableWriteZZZ extends AbstractJobStepWithOutputZZZ {
 	 * @throws ExceptionZZZ
 	 * 23.06.2023, 09:44:32, Fritz Lindhauer
 	 */
-	public JobStepHtmlTableWriteZZZ(JobStepControllerZZZ objController) throws ExceptionZZZ {
+	public JobStepHtmlTableWriteZZZ(IJobStepControllerZZZ objController) throws ExceptionZZZ {
 		super(objController);
 		JobStepHtmlTableWriterNew_(null);
 	}
@@ -42,7 +42,7 @@ public class JobStepHtmlTableWriteZZZ extends AbstractJobStepWithOutputZZZ {
 	 * @throws ExceptionZZZ
 	 * 23.06.2023, 09:44:32, Fritz Lindhauer
 	 */
-	public JobStepHtmlTableWriteZZZ(IKernelZZZ objKernel, JobStepControllerZZZ objController) throws ExceptionZZZ {
+	public JobStepHtmlTableWriteZZZ(IKernelZZZ objKernel, IJobStepControllerZZZ objController) throws ExceptionZZZ {
 		super(objController);
 		JobStepHtmlTableWriterNew_(objKernel);
 	}
@@ -195,6 +195,4 @@ public class JobStepHtmlTableWriteZZZ extends AbstractJobStepWithOutputZZZ {
 		}//end main:
 		return bReturn;
 	}
-
-	
 }
