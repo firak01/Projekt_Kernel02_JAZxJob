@@ -17,6 +17,7 @@ import basic.zKernel.job.JobHtmlProviderZZZ;
 import basic.zKernel.net.client.AbstractMainZZZ;
 import basic.zKernel.net.client.ConfigHtmlTableHandlerZZZ;
 import basic.zKernel.net.client.HtmlTableHandlerApplicationZZZ;
+import basic.zKernel.net.client.IApplicationUserZZZ;
 import basic.zKernel.net.client.IApplicationZZZ;
 import custom.zKernel.LogZZZ;
 
@@ -25,7 +26,15 @@ import java.util.ArrayList;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.IConstantZZZ;
 
-public class HtmlTableHandlerByJobMainZZZ extends AbstractMainZZZ {	
+/**
+ *  Merke: Diese Klasse implementiert als Main schon IApplicationUserZZZ.
+ *         Für die Nutzung in einem bestimmten Projekt muss daher das ApllicationObjekt per CAST jübergeben werden.
+ *         Z.B. für IApplicationUserOVPN
+ * 
+ * @author Fritz Lindhauer, 25.07.2023, 07:50:15
+ * 
+ */
+public class HtmlTableHandlerByJobMainZZZ extends AbstractMainZZZ implements IApplicationUserZZZ{	
 	/**Entry point for the OVPN-Client-Starter.
 	 * @return void
 	 * @param args 
