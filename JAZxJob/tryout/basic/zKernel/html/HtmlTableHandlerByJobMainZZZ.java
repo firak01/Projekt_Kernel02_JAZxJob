@@ -2,7 +2,7 @@ package basic.zKernel.html;
 
 import basic.zKernel.IKernelConfigZZZ;
 import basic.zKernel.IKernelZZZ;
-import basic.zKernel.KernelUseObjectZZZ;
+import basic.zKernel.AbstractKernelUseObjectZZZ;
 import basic.zKernel.KernelZZZ;
 import basic.zKernel.file.ini.IKernelCallIniSolverZZZ;
 import basic.zKernel.file.ini.IKernelEncryptionIniSolverZZZ;
