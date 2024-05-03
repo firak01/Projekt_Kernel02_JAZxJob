@@ -102,10 +102,19 @@ public class HtmlTableHandlerByJobMainZZZ extends AbstractMainZZZ implements IAp
 				if(objKernel!=null){
 					LogZZZ objLog = objKernel.getLogObject();
 					if(objLog!=null){
-						objLog.WriteLineDate(ez.getDetailAllLast());
+						try {
+							objLog.WriteLineDate(ez.getDetailAllLast());
+						} catch (ExceptionZZZ ez2) {
+							ez2.printStackTrace();
+							System.out.println(ez2.getDetailAllLast());
+						}
 					}else{
-						ez.printStackTrace();
-						System.out.println(ez.getDetailAllLast());
+						try {
+							this.logProtocolString(ez.getDetailAllLast());
+						} catch (ExceptionZZZ ez2) {
+							ez2.printStackTrace();
+							System.out.println(ez2.getDetailAllLast());
+						}
 					}				
 				}else{
 					ez.printStackTrace();
