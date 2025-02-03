@@ -61,7 +61,18 @@ public class ProgramPageWebUploadOVPN  extends AbstractKernelProgramZZZ implemen
 							
 		}//END main
 	}
-		
+	
+	//### Aus IResettableValuesZZZ
+	@Override
+	public boolean reset() throws ExceptionZZZ{
+		return super.reset();
+	}
+	
+	@Override 
+	public boolean resetValues() throws ExceptionZZZ{
+		return false;
+	}
+	
 	
 	//### Getter / Setter	
 	public String getTargetUrl() throws ExceptionZZZ{
@@ -401,10 +412,6 @@ TargetFile=testpage.html
 	}
 
 
-	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }
 

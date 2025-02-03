@@ -26,6 +26,20 @@ public abstract class AbstractJobStepWithOutputZZZ extends AbstractJobStepZZZ im
 		return true;
 	}
 	
+	//### Aus IResettableValuesZZZ
+	@Override
+	public boolean reset() throws ExceptionZZZ{
+		super.reset();		
+		return true;
+	}
+	
+	@Override
+	public boolean resetValues() throws ExceptionZZZ{
+		super.resetValues();
+		this.hmOutput=null;
+		return true;
+	}
+	
 	//Aus IJobStepOutputProviderZZZ
 	@Override 
 	public HashMap<String,IJobStepOutputZZZ> getHashMapOutput() throws ExceptionZZZ{

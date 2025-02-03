@@ -36,6 +36,23 @@ public abstract class AbstractJobStepZZZ extends AbstractKernelProgramZZZ implem
 		return true;
 	}
 	
+	//### Aus IResettabelValuesZZZ
+	@Override
+	public boolean reset() throws ExceptionZZZ{
+		this.sStepAlias=null;
+		//Erweiterungsidee... this.objJobStepController.reset();
+		this.resetValues();
+		return true;
+	}
+	
+	@Override
+	public boolean resetValues() throws ExceptionZZZ{
+		//super.resetValues(); //gibt es nicht, da oberste Ebene
+		return false;
+	}
+
+
+	
 	//Aus IJobStepZZZ
 	@Override 
 	public abstract boolean process() throws ExceptionZZZ;
@@ -116,12 +133,5 @@ public abstract class AbstractJobStepZZZ extends AbstractKernelProgramZZZ implem
 		this.getLogObject().logLineDate(sLog);
 	}
 	
-	//### Aus IKernelModule
-	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
+	
 }

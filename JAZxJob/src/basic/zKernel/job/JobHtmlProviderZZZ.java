@@ -25,6 +25,19 @@ public class JobHtmlProviderZZZ extends AbstractJobZZZ{
 	}
 	
 	
+	//### aus IResettableValuesZZZ
+	@Override
+	public boolean reset() throws ExceptionZZZ {
+		return super.reset();
+	}
+	
+	@Override
+	public boolean resetValues() throws ExceptionZZZ {	
+		return false;
+	}
+
+	
+	
 	@Override
 	public String getJobAliasCustom() throws ExceptionZZZ {
 		return sJOB_ALIAS;
@@ -52,12 +65,5 @@ public class JobHtmlProviderZZZ extends AbstractJobZZZ{
 			listaReturn = this.getJobSteps();
 		}//end main:
 		return listaReturn;
-	}
-
-	//### aus IKernelModuleZZZ
-	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-		
 	}
 }
