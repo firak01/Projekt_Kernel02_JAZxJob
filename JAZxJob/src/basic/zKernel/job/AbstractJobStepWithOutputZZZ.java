@@ -36,7 +36,7 @@ public abstract class AbstractJobStepWithOutputZZZ extends AbstractJobStepZZZ im
 	@Override
 	public boolean resetValues() throws ExceptionZZZ{
 		super.resetValues();
-		this.hmOutput=null;
+		if(this.hmOutput!=null) this.hmOutput.clear();
 		return true;
 	}
 	
