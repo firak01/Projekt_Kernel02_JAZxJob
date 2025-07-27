@@ -73,6 +73,10 @@ public class ProgramPageWebUploadOVPN  extends AbstractKernelProgramZZZ implemen
 		return false;
 	}
 	
+	@Override 
+	public boolean resetValues(Object objDefault) throws ExceptionZZZ{
+		return this.resetValues();
+	}
 	
 	//### Getter / Setter	
 	public String getTargetUrl() throws ExceptionZZZ{

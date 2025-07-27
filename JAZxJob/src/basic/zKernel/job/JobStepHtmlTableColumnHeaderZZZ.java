@@ -103,5 +103,7 @@ public class JobStepHtmlTableColumnHeaderZZZ extends AbstractJobStepWithOutputZZ
 			}									
 		}//end main:
 		return bReturn;
-	}	
+	}
+
+	
 }

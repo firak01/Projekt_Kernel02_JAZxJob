@@ -103,6 +103,14 @@ public abstract class AbstractJobZZZ extends AbstractKernelProgramZZZ implements
 		return this.getJobStepController().process();
 	}
 	
+	//### Aus IResetValues
+	@Override
+	public boolean resetValues(Object objDefault) throws ExceptionZZZ {
+		this.resetValues();
+		//hier könnte dann der Defaultwert gesetzt werden.
+		return false;
+	}
+	
 	//### Aus IKernelUserZZZ
 	@Override
 	public IKernelZZZ getKernelObject() throws ExceptionZZZ {

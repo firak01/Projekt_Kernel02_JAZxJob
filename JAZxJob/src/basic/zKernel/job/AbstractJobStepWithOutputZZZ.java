@@ -10,6 +10,7 @@ import basic.zKernel.net.client.IMainZZZ;
 import custom.zKernel.LogZZZ;
 
 public abstract class AbstractJobStepWithOutputZZZ extends AbstractJobStepZZZ implements IJobStepOutputProviderZZZ{
+	private static final long serialVersionUID = 6926851013823397610L;
 	HashMap<String,IJobStepOutputZZZ> hmOutput = null;	
 	
 	public AbstractJobStepWithOutputZZZ() throws ExceptionZZZ{
@@ -39,6 +40,16 @@ public abstract class AbstractJobStepWithOutputZZZ extends AbstractJobStepZZZ im
 		if(this.hmOutput!=null) this.hmOutput.clear();
 		return true;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean resetValues(Object objDefault) throws ExceptionZZZ {
+		this.resetValues();
+		this.hmOutput = (HashMap<String,IJobStepOutputZZZ>)objDefault;
+		return true;
+	}	
+	
+	
 	
 	//Aus IJobStepOutputProviderZZZ
 	@Override 
