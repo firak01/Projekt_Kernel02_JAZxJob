@@ -111,7 +111,7 @@ public class HtmlTableHandlerByJobMainZZZ extends AbstractMainZZZ implements IAp
 						}
 					}else{
 						try {
-							this.logProtocolString(ez.getDetailAllLast());
+							this.logProtocol(ez.getDetailAllLast());
 						} catch (ExceptionZZZ ez2) {
 							ez2.printStackTrace();
 							System.out.println(ez2.getDetailAllLast());
