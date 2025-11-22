@@ -2,12 +2,13 @@ package basic.zKernel.job;
 
 import java.util.ArrayList;
 
+import basic.zBasic.AbstractObjectZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.IKernelZZZ;
 import custom.zKernel.LogZZZ;
 
-public abstract class AbstractJobStepControllerZZZ implements IJobStepControllerZZZ{
+public abstract class AbstractJobStepControllerZZZ extends AbstractObjectZZZ implements IJobStepControllerZZZ{
 	private IJobZZZ objJob = null;
 	private ArrayList<IJobStepZZZ> listaJobStep = null;
 		

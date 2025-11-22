@@ -42,6 +42,4 @@ public class JobStepControllerZZZ extends AbstractJobStepControllerZZZ {
 		}//end main:
 		return bReturn;
 	}
-	
-	
 }

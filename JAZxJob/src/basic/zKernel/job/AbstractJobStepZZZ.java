@@ -51,7 +51,11 @@ public abstract class AbstractJobStepZZZ extends AbstractKernelProgramZZZ implem
 		return false;
 	}
 
-
+	@Override
+	public boolean resetValues(Object objDefault) throws ExceptionZZZ {
+		// TODO Auto-generated method stub
+		return false;
+	}	
 	
 	//Aus IJobStepZZZ
 	@Override 
