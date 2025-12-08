@@ -8,7 +8,7 @@ import java.util.Set;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
-import basic.zBasic.util.abstractList.HashMapIndexedZZZ;
+import basic.zBasic.util.abstractList.HashMapIndexedObjektZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zKernel.IKernelConfigSectionEntryZZZ;
 import basic.zKernel.IKernelConfigZZZ;
@@ -97,8 +97,8 @@ public class JobStepHtmlTableWriteZZZ extends AbstractJobStepWithOutputZZZ {
 				}
 				
 				//A) Die erstellte HashMap mit HeaderId = Label
-				HashMapIndexedZZZ<Integer, TableHeadZZZ> mapIndexedTableHeadLabel = new HashMapIndexedZZZ<Integer, TableHeadZZZ>();
-				mapIndexedTableHeadLabel = (HashMapIndexedZZZ<Integer, TableHeadZZZ>) objOutputStepPrevious.getHashMapIndexed();
+				HashMapIndexedObjektZZZ<Integer, TableHeadZZZ> mapIndexedTableHeadLabel = new HashMapIndexedObjektZZZ<Integer, TableHeadZZZ>();
+				mapIndexedTableHeadLabel = (HashMapIndexedObjektZZZ<Integer, TableHeadZZZ>) objOutputStepPrevious.getHashMapIndexed();
 												
 				//##############################################
 				//Werte fuer diesen Step holen

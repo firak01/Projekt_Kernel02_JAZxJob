@@ -8,7 +8,7 @@ import java.util.Set;
 
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
-import basic.zBasic.util.abstractList.HashMapIndexedZZZ;
+import basic.zBasic.util.abstractList.HashMapIndexedObjektZZZ;
 import basic.zBasic.util.file.FileEasyZZZ;
 import basic.zKernel.IKernelConfigSectionEntryZZZ;
 import basic.zKernel.IKernelConfigZZZ;
@@ -84,7 +84,7 @@ public class JobStepHtmlTableColumnHeaderZZZ extends AbstractJobStepWithOutputZZ
 				Iterator<String>itHeadId = setHeadId.iterator();
 				
 				//Aus der HashMap die Index HashMap mit den Table Head-Objekten errechnen.
-				HashMapIndexedZZZ<Integer, TableHeadZZZ> mapIndexedTableHeadLabel = new HashMapIndexedZZZ<Integer, TableHeadZZZ>();				
+				HashMapIndexedObjektZZZ<Integer, TableHeadZZZ> mapIndexedTableHeadLabel = new HashMapIndexedObjektZZZ<Integer, TableHeadZZZ>();				
 				while(itHeadId.hasNext()) {
 					String sHeadId = itHeadId.next();
 					String sLabel = mapTableHeadLabel.get(sHeadId);

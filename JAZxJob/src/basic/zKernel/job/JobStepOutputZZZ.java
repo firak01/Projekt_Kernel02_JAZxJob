@@ -3,17 +3,17 @@ package basic.zKernel.job;
 import java.io.File;
 
 import basic.zBasic.ExceptionZZZ;
-import basic.zBasic.util.abstractList.HashMapIndexedZZZ;
+import basic.zBasic.util.abstractList.HashMapIndexedObjektZZZ;
 import use.zKernel.html.step01.writer.TableHeadZZZ;
 
 public class JobStepOutputZZZ implements IJobStepOutputZZZ{
-	HashMapIndexedZZZ<Integer, ?> hmIndexed = null;
+	HashMapIndexedObjektZZZ<Integer, ?> hmIndexed = null;
 	File objFile = null;
 	
 	public JobStepOutputZZZ() {		
 	}
 	
-	public JobStepOutputZZZ(HashMapIndexedZZZ<Integer, ?> hmIndexedOutput) {
+	public JobStepOutputZZZ(HashMapIndexedObjektZZZ<Integer, ?> hmIndexedOutput) {
 		this.setHashMapIndexed(hmIndexedOutput);
 	}
 
@@ -22,15 +22,15 @@ public class JobStepOutputZZZ implements IJobStepOutputZZZ{
 	}
 
 		@Override
-	public HashMapIndexedZZZ<Integer, ?> getHashMapIndexed() throws ExceptionZZZ {
+	public HashMapIndexedObjektZZZ<Integer, ?> getHashMapIndexed() throws ExceptionZZZ {
 		if(this.hmIndexed==null) {
-			this.hmIndexed = new HashMapIndexedZZZ();
+			this.hmIndexed = new HashMapIndexedObjektZZZ();
 		}
 		return this.hmIndexed;
 	}
 
 	@Override
-	public void setHashMapIndexed(HashMapIndexedZZZ<Integer, ?> hmIndexed) {
+	public void setHashMapIndexed(HashMapIndexedObjektZZZ<Integer, ?> hmIndexed) {
 		this.hmIndexed = hmIndexed;
 	}
 
