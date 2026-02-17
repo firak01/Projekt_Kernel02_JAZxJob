@@ -104,7 +104,7 @@ public class HtmlTableHandlerByJobMainZZZ extends AbstractMainZZZ implements IAp
 					LogZZZ objLog = objKernel.getLogObject();
 					if(objLog!=null){
 						try {
-							objLog.WriteLineDate(ez.getDetailAllLast());
+							objLog.writeLineDate(ez.getDetailAllLast());
 						} catch (ExceptionZZZ ez2) {
 							ez2.printStackTrace();
 							System.out.println(ez2.getDetailAllLast());
@@ -138,7 +138,7 @@ public class HtmlTableHandlerByJobMainZZZ extends AbstractMainZZZ implements IAp
 		} catch (ExceptionZZZ e) {
 			try {
 				this.setFlag("haserror", true);
-				this.getKernelObject().getLogObject().WriteLineDate(e.getDetailAllLast());
+				this.getKernelObject().getLogObject().writeLineDate(e.getDetailAllLast());
 			} catch (ExceptionZZZ e1) {	
 				System.out.println(e1.getDetailAllLast());
 				e1.printStackTrace();
