@@ -4,10 +4,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="tryout"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/JAZKernel"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/JAZKernelLogReport"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/JAZLanguageMarkup"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/JAZWebFTP"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/JAZWin32"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/JAZKernelEngine"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
