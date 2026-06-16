@@ -12,8 +12,17 @@ import custom.zKernel.ConfigFGL;
 import custom.zKernel.file.ini.FileIniZZZ;
 
 public class ConfigHtmlTableHandlerByJobZZZ  extends AbstractKernelConfigZZZ{
-	private static String sPROJECT_NAME = "JAZxJob";
-	private static String sPROJECT_PATH = "Projekt_Kernel02_JAZxJob";
+	
+	//#################################################
+	//Merke: Die Konstanten sind meist nicht final, damit sie von der konkreten Konfiguration
+	//       ueberschrieben werden koennen.
+	//       Final sind die fuer den Kernel selbst wichtige Konstanten
+	
+	
+	//#####################################################################
+	//####### Reflektion zum Gesamtprojekt
+	static String sPROJECT_DIRECTORY = "Projekt_Kernel02_JAZxJob";
+	static String sPROJECT_NAME = "JAZxJob";
 	
 	public ConfigHtmlTableHandlerByJobZZZ() throws ExceptionZZZ{
 		super();
