@@ -14,7 +14,7 @@ import custom.zKernel.LogZZZ;
 public abstract class AbstractJobStepZZZ extends AbstractKernelProgramZZZ implements IJobStepZZZ, IConstantZZZ{
 	public static String sJOBSTEP_ALIAS="DEFAULT, IN ERBENDER KLASSE ERSETZEN";
 	
-	private IJobStepControllerZZZ objJobStepController=null;
+	private IJobStepManagerZZZ objJobStepController=null;
 	private String sStepAlias = null;
 	
 	private IMainZZZ objMainHandler=null;//die im JobStep verwendete Application, das ist nicht die andere "aussen" rum.
@@ -23,12 +23,12 @@ public abstract class AbstractJobStepZZZ extends AbstractKernelProgramZZZ implem
 		super();
 	}
 	
-	public AbstractJobStepZZZ(IJobStepControllerZZZ objController) throws ExceptionZZZ {
+	public AbstractJobStepZZZ(IJobStepManagerZZZ objController) throws ExceptionZZZ {
 		super();
 		AbstractJobStepNew_(objController);
 	}
 	
-	private boolean AbstractJobStepNew_(IJobStepControllerZZZ objController) throws ExceptionZZZ {
+	private boolean AbstractJobStepNew_(IJobStepManagerZZZ objController) throws ExceptionZZZ {
 		this.setJobStepController(objController);
 		
 		String sJobStepAlias = this.getJobStepAliasCustom();//Diese Methode soll auf die static Variable DER ERBENDEN Klasse zugreifen.
@@ -97,12 +97,12 @@ public abstract class AbstractJobStepZZZ extends AbstractKernelProgramZZZ implem
 	
 	//Aus IJobStepControllerUserZZZ
 	@Override
-	public IJobStepControllerZZZ getJobStepController() {
+	public IJobStepManagerZZZ getJobStepManager() {
 		return this.objJobStepController;
 	}
 
 	@Override
-	public void setJobStepController(IJobStepControllerZZZ objJobStepController) {
+	public void setJobStepController(IJobStepManagerZZZ objJobStepController) {
 		this.objJobStepController = objJobStepController;
 	}
 	
@@ -111,7 +111,7 @@ public abstract class AbstractJobStepZZZ extends AbstractKernelProgramZZZ implem
 	public IKernelZZZ getKernelObject() throws ExceptionZZZ {
 		IKernelZZZ objReturn = super.getKernelObject();
 		if(objReturn==null) {
-			IKernelZZZ objKernelApplication = this.getJobStepController().getKernelObject();
+			IKernelZZZ objKernelApplication = this.getJobStepManager().getKernelObject();
 			this.setKernelObject(objKernelApplication);
 		}
 		return objReturn;

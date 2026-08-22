@@ -32,7 +32,7 @@ public class JobStepHtmlTableColumnHeaderZZZ extends AbstractJobStepWithOutputZZ
 	 * @throws ExceptionZZZ
 	 * 23.06.2023, 09:44:32, Fritz Lindhauer
 	 */
-	public JobStepHtmlTableColumnHeaderZZZ(IJobStepControllerZZZ objController) throws ExceptionZZZ {
+	public JobStepHtmlTableColumnHeaderZZZ(IJobStepManagerZZZ objController) throws ExceptionZZZ {
 		super(objController);
 		JobStepHtmlTableWriterNew_(null);
 	}
@@ -42,7 +42,7 @@ public class JobStepHtmlTableColumnHeaderZZZ extends AbstractJobStepWithOutputZZ
 	 * @throws ExceptionZZZ
 	 * 23.06.2023, 09:44:32, Fritz Lindhauer
 	 */
-	public JobStepHtmlTableColumnHeaderZZZ(IKernelZZZ objKernel, IJobStepControllerZZZ objController) throws ExceptionZZZ {
+	public JobStepHtmlTableColumnHeaderZZZ(IKernelZZZ objKernel, IJobStepManagerZZZ objController) throws ExceptionZZZ {
 		super(objController);
 		JobStepHtmlTableWriterNew_(objKernel);
 	}

@@ -51,15 +51,15 @@ public class JobHtmlProviderZZZ extends AbstractJobZZZ{
 			IKernelZZZ objKernelTableHandlerModule = this.getKernelObject();
 			
 			//1.1 HtmlTableHead
-			IJobStepOutputProviderZZZ stepHtmlTableHeader = new JobStepHtmlTableColumnHeaderZZZ(objKernelTableHandlerModule, this.getJobStepController());
+			IJobStepOutputProviderZZZ stepHtmlTableHeader = new JobStepHtmlTableColumnHeaderZZZ(objKernelTableHandlerModule, this.getJobStepManager());
 			this.addJobStep((IJobStepZZZ) stepHtmlTableHeader);
 			
 			//1.2 HtmlTableToFileWriter
-			IJobStepOutputProviderZZZ stepHtmlReader = new JobStepHtmlTableWriteZZZ(objKernelTableHandlerModule, this.getJobStepController());
+			IJobStepOutputProviderZZZ stepHtmlReader = new JobStepHtmlTableWriteZZZ(objKernelTableHandlerModule, this.getJobStepManager());
 			this.addJobStep(stepHtmlReader);
 			
 			//1.3 FileUploadToFtp
-			IJobStepZZZ stepPageUploaderToFtp = new JobStepFileUploaderToFtpZZZ(objKernelTableHandlerModule, this.getJobStepController());
+			IJobStepZZZ stepPageUploaderToFtp = new JobStepFileUploaderToFtpZZZ(objKernelTableHandlerModule, this.getJobStepManager());
 			this.addJobStep(stepPageUploaderToFtp);
 						
 			listaReturn = this.getJobSteps();

@@ -17,7 +17,7 @@ public abstract class AbstractJobStepWithOutputZZZ extends AbstractJobStepZZZ im
 		super();
 	}
 	
-	public AbstractJobStepWithOutputZZZ(IJobStepControllerZZZ objController) throws ExceptionZZZ {
+	public AbstractJobStepWithOutputZZZ(IJobStepManagerZZZ objController) throws ExceptionZZZ {
 		super(objController);
 		AbstractJobStepWithOutputNew_();
 	}

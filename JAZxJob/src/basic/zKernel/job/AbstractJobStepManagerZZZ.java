@@ -8,14 +8,16 @@ import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.IKernelZZZ;
 import custom.zKernel.LogZZZ;
 
-public abstract class AbstractJobStepControllerZZZ extends AbstractObjectZZZ implements IJobStepControllerZZZ{
+public abstract class AbstractJobStepManagerZZZ<T> extends AbstractObjectZZZ<T> implements IJobStepManagerZZZ{
+	private static final long serialVersionUID = -7486341914623285495L;
+	
 	private IJobZZZ objJob = null;
 	private ArrayList<IJobStepZZZ> listaJobStep = null;
 		
-	public AbstractJobStepControllerZZZ()throws ExceptionZZZ{
+	public AbstractJobStepManagerZZZ()throws ExceptionZZZ{
 		//super();
 	}
-	public AbstractJobStepControllerZZZ(IJobZZZ objJob)throws ExceptionZZZ{
+	public AbstractJobStepManagerZZZ(IJobZZZ objJob)throws ExceptionZZZ{
 		//super(objJob);
 		AbstractJobStepControllerNew_(objJob);
 	}

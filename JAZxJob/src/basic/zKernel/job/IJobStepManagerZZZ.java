@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import basic.zBasic.ExceptionZZZ;
 
-public interface IJobStepControllerZZZ extends IJobUserZZZ{
+public interface IJobStepManagerZZZ extends IJobUserZZZ{
 	
 	public ArrayList<IJobStepZZZ>getJobSteps();
 	void setJobSteps(ArrayList<IJobStepZZZ> listaJobStep);

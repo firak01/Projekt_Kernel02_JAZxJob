@@ -28,12 +28,12 @@ public class JobStepFileUploaderToFtpZZZ extends AbstractJobStepZZZ {
 	
 	
 	/**Ein JobStep, der im gleichen Modul liegt, also das gleiche Kernel-Objekt wie Application nutzt
-	 * @param objController
+	 * @param objManager
 	 * @throws ExceptionZZZ
 	 * 23.06.2023, 09:44:32, Fritz Lindhauer
 	 */
-	public JobStepFileUploaderToFtpZZZ(IJobStepControllerZZZ objController) throws ExceptionZZZ {
-		super(objController);
+	public JobStepFileUploaderToFtpZZZ(IJobStepManagerZZZ objManager) throws ExceptionZZZ {
+		super(objManager);
 		JobStepPageUploaderToFtpZZZ_(null);
 	}
 	
@@ -42,8 +42,8 @@ public class JobStepFileUploaderToFtpZZZ extends AbstractJobStepZZZ {
 	 * @throws ExceptionZZZ
 	 * 23.06.2023, 09:44:32, Fritz Lindhauer
 	 */
-	public JobStepFileUploaderToFtpZZZ(IKernelZZZ objKernel, IJobStepControllerZZZ objController) throws ExceptionZZZ {
-		super(objController);
+	public JobStepFileUploaderToFtpZZZ(IKernelZZZ objKernel, IJobStepManagerZZZ objManager) throws ExceptionZZZ {
+		super(objManager);
 		JobStepPageUploaderToFtpZZZ_(objKernel);
 	}
 	
@@ -67,7 +67,7 @@ public class JobStepFileUploaderToFtpZZZ extends AbstractJobStepZZZ {
 				//1. Hole die Interne Application für diesen Step.
 	            //	 Dazu ist in der Ini Datei dieser STEP mit seinem Aliasnamen definiert (also NICHT die Klasse incl. Packagenamen) als ein Program.
 	            //	 Die Werte dann im Program hinterlegen, also Pfad				
-				IJobStepControllerZZZ objController = this.getJobStepController();
+				IJobStepManagerZZZ objManager = this.getJobStepManager();
 				
 				//Falls etwas aus dem Job- oder de Application- oder dem aufrufenden Kernel-Objekt gebraucht wuerde:
 				//IJobZZZ objJob = objController.getJob();				
@@ -76,7 +76,7 @@ public class JobStepFileUploaderToFtpZZZ extends AbstractJobStepZZZ {
 								
 				//Ausgabeparameter des vorherigen HtmlTableWrite-Steps holen
 				String sJobStepPrevious = "HtmlTableWriterStep";
-				IJobStepOutputProviderZZZ objJobStepWithOutput = objController.getJobStepForOutput(sJobStepPrevious);
+				IJobStepOutputProviderZZZ objJobStepWithOutput = objManager.getJobStepForOutput(sJobStepPrevious);
 				if(objJobStepWithOutput==null) {
 					String sLog = "Missing previous JobStep with output: '" + sJobStepPrevious + "' for this step '" + this.getJobStepAlias() + "'.";
 					System.out.println(ReflectCodeZZZ.getMethodCurrentName() + ": "+ sLog);

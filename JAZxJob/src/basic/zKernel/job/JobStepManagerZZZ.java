@@ -7,11 +7,11 @@ import basic.zBasic.ReflectCodeZZZ;
 import basic.zKernel.IKernelZZZ;
 import custom.zKernel.LogZZZ;
 
-public class JobStepControllerZZZ extends AbstractJobStepControllerZZZ {
-	public JobStepControllerZZZ()throws ExceptionZZZ{
+public class JobStepManagerZZZ extends AbstractJobStepManagerZZZ {
+	public JobStepManagerZZZ()throws ExceptionZZZ{
 		super();
 	}
-	public JobStepControllerZZZ(IJobZZZ objJob)throws ExceptionZZZ{
+	public JobStepManagerZZZ(IJobZZZ objJob)throws ExceptionZZZ{
 		super(objJob);
 	}
 	

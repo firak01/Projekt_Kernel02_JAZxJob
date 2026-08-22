@@ -6,7 +6,7 @@ import basic.zBasic.ExceptionZZZ;
 import basic.zKernel.IKernelUserZZZ;
 import basic.zKernel.net.client.IApplicationUserZZZ;
 
-public interface IJobZZZ extends IJobStepControllerUserZZZ, IApplicationUserZZZ, IKernelUserZZZ{
+public interface IJobZZZ extends IJobStepManagerUserZZZ, IApplicationUserZZZ, IKernelUserZZZ{
 	
 	public boolean process() throws ExceptionZZZ;
 

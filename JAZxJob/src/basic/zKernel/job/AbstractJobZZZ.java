@@ -16,7 +16,7 @@ public abstract class AbstractJobZZZ extends AbstractKernelProgramZZZ implements
 	
 	private String sAlias = null;
 	private IApplicationZZZ objApplication = null;
-	private IJobStepControllerZZZ objJobStepController = null;
+	private IJobStepManagerZZZ objJobStepController = null;
 	
 	
 	public AbstractJobZZZ() throws ExceptionZZZ  {	
@@ -70,37 +70,37 @@ public abstract class AbstractJobZZZ extends AbstractKernelProgramZZZ implements
 	
 	//### Aus IJobZZZ
 	@Override
-	public IJobStepControllerZZZ getJobStepController() throws ExceptionZZZ {
+	public IJobStepManagerZZZ getJobStepManager() throws ExceptionZZZ {
 		if(this.objJobStepController==null) {
-			IJobStepControllerZZZ objController = new JobStepControllerZZZ(this);
+			IJobStepManagerZZZ objController = new JobStepManagerZZZ(this);
 			this.setJobStepController(objController);
 		}
 		return this.objJobStepController;
 	}
 
 	@Override
-	public void setJobStepController(IJobStepControllerZZZ objJobStepController) {
+	public void setJobStepController(IJobStepManagerZZZ objJobStepController) {
 		this.objJobStepController = objJobStepController;
 	}
 	
 	@Override
 	public ArrayList<IJobStepZZZ> getJobSteps() throws ExceptionZZZ{
-		return this.getJobStepController().getJobSteps();		
+		return this.getJobStepManager().getJobSteps();		
 	}
 	
 	@Override
 	public void setJobSteps(ArrayList<IJobStepZZZ> listaJobStep) throws ExceptionZZZ{
-		this.getJobStepController().setJobSteps(listaJobStep);
+		this.getJobStepManager().setJobSteps(listaJobStep);
 	}
 	
 	@Override
 	public void addJobStep(IJobStepZZZ objJobStep) throws ExceptionZZZ{
-		this.getJobStepController().addJobStep(objJobStep);
+		this.getJobStepManager().addJobStep(objJobStep);
 	}
 	
 	@Override
 	public boolean process() throws ExceptionZZZ{
-		return this.getJobStepController().process();
+		return this.getJobStepManager().process();
 	}
 	
 	//### Aus IResetValues
