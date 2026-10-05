@@ -6,7 +6,7 @@ import basic.zBasic.AbstractObjectZZZ;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.IKernelZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 public abstract class AbstractJobStepManagerZZZ<T> extends AbstractObjectZZZ<T> implements IJobStepManagerZZZ{
 	private static final long serialVersionUID = -7486341914623285495L;
@@ -98,11 +98,11 @@ public abstract class AbstractJobStepManagerZZZ<T> extends AbstractObjectZZZ<T> 
 		this.getJob().setKernelObject(objKernel);
 	}
 	@Override
-	public LogZZZ getLogObject() throws ExceptionZZZ {
+	public KernelLogZZZ getLogObject() throws ExceptionZZZ {
 		return this.getKernelObject().getLogObject();
 	}
 	@Override
-	public void setLogObject(LogZZZ objLog) throws ExceptionZZZ {
+	public void setLogObject(KernelLogZZZ objLog) throws ExceptionZZZ {
 		this.getKernelObject().setLogObject(objLog);
 	}
 	@Override

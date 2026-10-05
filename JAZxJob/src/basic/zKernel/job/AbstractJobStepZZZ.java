@@ -8,7 +8,7 @@ import basic.zKernel.AbstractKernelUseObjectZZZ;
 import basic.zKernel.component.AbstractKernelModuleZZZ;
 import basic.zKernel.component.AbstractKernelProgramZZZ;
 import basic.zKernel.net.client.IMainZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 //public abstract class AbstractJobStepZZZ extends KernelUseObjectZZZ implements IJobStepZZZ, IConstantZZZ{
 public abstract class AbstractJobStepZZZ extends AbstractKernelProgramZZZ implements IJobStepZZZ, IConstantZZZ{
@@ -123,12 +123,12 @@ public abstract class AbstractJobStepZZZ extends AbstractKernelProgramZZZ implem
 	}
 
 	@Override
-	public LogZZZ getLogObject() throws ExceptionZZZ {
+	public KernelLogZZZ getLogObject() throws ExceptionZZZ {
 		return this.getKernelObject().getLogObject();
 	}
 
 	@Override
-	public void setLogObject(LogZZZ objLog) throws ExceptionZZZ {
+	public void setLogObject(KernelLogZZZ objLog) throws ExceptionZZZ {
 		this.getKernelObject().setLogObject(objLog);
 	}
 

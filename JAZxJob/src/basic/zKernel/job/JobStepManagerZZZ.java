@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import basic.zBasic.ExceptionZZZ;
 import basic.zBasic.ReflectCodeZZZ;
 import basic.zKernel.IKernelZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 public class JobStepManagerZZZ extends AbstractJobStepManagerZZZ {
 	public JobStepManagerZZZ()throws ExceptionZZZ{

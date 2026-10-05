@@ -7,7 +7,7 @@ import basic.zBasic.IConstantZZZ;
 import basic.zBasic.util.datatype.string.StringZZZ;
 import basic.zKernel.IKernelZZZ;
 import basic.zKernel.net.client.IMainZZZ;
-import custom.zKernel.LogZZZ;
+import custom.zKernel.KernelLogZZZ;
 
 public abstract class AbstractJobStepWithOutputZZZ extends AbstractJobStepZZZ implements IJobStepOutputProviderZZZ{
 	private static final long serialVersionUID = 6926851013823397610L;
