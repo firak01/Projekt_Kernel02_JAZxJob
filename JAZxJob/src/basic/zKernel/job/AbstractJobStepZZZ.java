@@ -133,8 +133,8 @@ public abstract class AbstractJobStepZZZ extends AbstractKernelProgramZZZ implem
 	}
 
 	@Override
-	public void logLineDate(String sLog) throws ExceptionZZZ {
-		this.getLogObject().logLineDate(sLog);
+	public void printlnDate(String sLog) throws ExceptionZZZ {
+		this.getLogObject().printlnDate(sLog);
 	}
 	
 	

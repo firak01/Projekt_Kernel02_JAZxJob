@@ -106,7 +106,7 @@ public abstract class AbstractJobStepManagerZZZ<T> extends AbstractObjectZZZ<T> 
 		this.getKernelObject().setLogObject(objLog);
 	}
 	@Override
-	public void logLineDate(String sLog) throws ExceptionZZZ {
-		this.getLogObject().logLineDate(sLog);
+	public void printlnDate(String sLog) throws ExceptionZZZ {
+		this.getLogObject().printlnDate(sLog);
 	}
 }
